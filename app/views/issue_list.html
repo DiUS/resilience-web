@@ -1,5 +1,9 @@
 <div ng-controller="IssueListController">
 	<ul ng-repeat="issue in issueList.results">
-		<li>{{issue.name}}</li>
+		<li ng-class="issue.impact">
+			<div>{{issue.name}}</div>
+			<div>{{issue.createdAt | timeSince}}</div>
+			
+		</li>
 	</ul>
 </div>
