@@ -2,21 +2,22 @@
 <html ng-app="resilienceApp">
 <head>
   <meta charset="utf-8">
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/parse-1.1.14.js"></script>
-  <script src="js/resilience-web.js"></script>
   
   <title>Resilience</title>
 </head>
 <body>
-	<input type="text" ng-model="name">
-	<H1>Hello {{name}}</H1>
-	
 	<a href="#/issues">Show List</a>
 	
 	<div ng-view/>
 </body>
+  <!-- Use new version 1.1.1 from CDN when released
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.js"></script>
+  -->
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/angular-resource.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/issueService.js"></script>
 
 </html>

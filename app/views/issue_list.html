@@ -1,1 +1,5 @@
-<p>Issue Lists</p>
+<div ng-controller="IssueListController">
+	<ul ng-repeat="issue in issueList.results">
+		<li>{{issue.name}}</li>
+	</ul>
+</div>

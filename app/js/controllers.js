@@ -1,7 +1,7 @@
 'use strict';
 
-function IssueListController() {
-	
+function IssueListController($scope, $rootScope, IssueService) {
+	$scope.issueList = IssueService.get();
 }
 
 function IssueController() {

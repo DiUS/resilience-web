@@ -2,7 +2,7 @@
 
 /* Resilience App Module */
 
-var resilienceModule = angular.module('resilienceApp', []);
+var resilienceModule = angular.module('resilienceApp', ['issueApp']);
 
 resilienceModule.config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.
