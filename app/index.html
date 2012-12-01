@@ -9,15 +9,17 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
     <link rel="stylesheet/less" type="text/css" href="css/issue.less">
+    <link rel="stylesheet/less" type="text/css" href="css/mapview.less">
   
   <title>Resilience</title>
 </head>
 <body>  
-  <div class="issueList" ng-view></div>
-  <div class="container">
+  <div ng-view></div>
+
     <a href="#/issues">Show List</a>
     <a href="#/map">Show Map</a>
-  </div>
+    <a href="#/view">Combined view</a>
+
 </body>
   <!-- Use new version 1.1.1 from CDN when released
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"></script>

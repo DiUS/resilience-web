@@ -1,9 +1,11 @@
-<div class="searchBox">
-	<input type="text" placeholder="Search" ng-model="query">
+<div ng-controller="IssueListController">
+	<div class="searchBox">
+		<input type="text" placeholder="Search" ng-model="query">
+	</div>
+	<ul>
+		<li ng-repeat="issue in issueList.results | filter: query" ng-class="issue.impact" class="issue">
+			<div>{{issue.name}}</div>
+			<div>{{issue.createdAt | timeSince}}</div>
+		</li>
+	</ul>
 </div>
-<ul>
-	<li ng-repeat="issue in issueList.results | filter: query" ng-class="issue.impact" class="issue">
-		<div>{{issue.name}}</div>
-		<div>{{issue.createdAt | timeSince}}</div>
-	</li>
-</ul>
