@@ -1,13 +1,13 @@
-<div ng-controller="IssueListController">
+<div ng-controller="IssueListController" class="well sidebar-nav">
 	<div class="searchBox">
 		<span>Search: </span><input type="text" ng-model="query">
 	</div>
-
-	<ul ng-repeat="issue in issueList.results | filter: query">
-		<li ng-class="issue.impact">
-			<div>{{issue.name}}</div>
-			<div>{{issue.createdAt | timeSince}}</div>
-			
+	<ul class="nav nav-list">
+		<li ng-repeat="issue in issueList.results | filter: query" ng-class="issue.impact">
+			<a href="#">
+				<div>{{issue.name}}</div>
+				<div>{{issue.createdAt | timeSince}}</div>
+			</a>
 		</li>
 	</ul>
 </div>
