@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGhHhG5mqahPfCb6IXJhbQgGRLi_7sbgo&sensor=true">
-    </script>
-    <script type="text/javascript">
-	  function markLocation() {
-		var lat = document.getElementById("txtLat");
-		var lng = document.getElementById("txtLng");
-		var issue = document.getElementById("txtIssue");
-        var location = new google.maps.LatLng(lat.value, lng.value);
+	<head>
+		<script type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGhHhG5mqahPfCb6IXJhbQgGRLi_7sbgo&sensor=true">
+		</script>
+		<script type="text/javascript">
+		function markLocation() {
+			var lat = document.getElementById("txtLat");
+			var lng = document.getElementById("txtLng");
+			var issue = document.getElementById("txtIssue");
+			var location = new google.maps.LatLng(lat.value, lng.value);
 
-		var mapOptions = {
-			zoom: 6,
-			center: location,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
+			var mapOptions = {
+				zoom: 6,
+				center: location,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
 
-        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+			var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map,
-            title: issue		
-		});
-	  }
-    </script>
-  </head>
-  <body>
-	<input type="text" id="txtIssue" value="Issue No. 1" />
-	<input type="text" id="txtLat" value="-34.2" />
-	<input type="text" id="txtLng" value="150.6" />
-	<input type="button" id="btnPin"	value="Pin this!" onclick="markLocation()" />
-    <div id="map_canvas" style="width:400px; height:300px"></div>
-  </body>
- </html>
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map,
+				title: issue		
+			});
+		}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="txtIssue" value="Issue No. 1" />
+		<input type="text" id="txtLat" value="-34.2" />
+		<input type="text" id="txtLng" value="150.6" />
+		<input type="button" id="btnPin"	value="Pin this!" onclick="markLocation()" />
+		<div id="map_canvas" style="width:400px; height:300px"></div>
+	</body>
+</html>
