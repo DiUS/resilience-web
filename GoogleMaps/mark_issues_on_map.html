@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<script type="text/javascript" language="javascript">
+	function loadIssues() {
+		return [
+			{"issue":"Issue #1","lat":-31,"lng":150},
+			{"issue":"Issue #2","lat":-32,"lng":148},
+			{"issue":"Issue #3","lat":-33,"lng":146},
+			{"issue":"Issue #4","lat":-34,"lng":144}
+		]
+	}
+
+	function markLocation()
+	{
+		var map;
+		var locations = loadIssues();
+		var markers = new Array();
+
+		var minLat = NaN, maxLat = NaN, minLng = NaN, maxLng = NaN;
+
+		$.each(locations, function(index)
+		{
+			var lat = locations[index].lat;
+			var lng = locations[index].lng;
+			var issue = locations[index].issue;
+			var location = new google.maps.LatLng(lat, lng);
+
+			if(isNaN(minLat) || lat < minLat) minLat = lat;
+			if(isNaN(minLng) || lng < minLng) minLng = lng;
+			if(isNaN(maxLat) || lat > maxLat) maxLat = lat;
+			if(isNaN(maxLng) || lng > maxLng) maxLng = lng;
+			console.log( minLat + ',' + minLng + ',' + maxLat + ',' + maxLng);
+
+			var marker = new google.maps.Marker({
+				position: location,
+				title: issue
+			});
+
+			markers.push(marker);
+		});
+
+		var middlePosition = new google.maps.LatLng((minLat + maxLat)/2, (minLng + maxLng)/2)
+
+		var mapOptions = {
+			zoom: 6,
+			center: middlePosition,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+		$.each(markers, function(index)
+		{
+			markers[index].setMap(map);
+		});
+	  }
+	</script>
+  </head>
+  <body>
+	<input type="text" id="txtIssue" value="Issue No. 1" />
+	<input type="text" id="txtLat" value="-34.2" />
+	<input type="text" id="txtLng" value="150.6" />
+	<input type="button" id="btnPin" value="Pin this!" onclick="markLocation()" />
+	<input type="button" id="btnLoad" value="Load Issues" onclick="loadIssues()" />
+	<div id="map_canvas" style="width:400px; height:300px"></div>
+	<textarea id="result"></textarea>
+  </body>
+ </html>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGhHhG5mqahPfCb6IXJhbQgGRLi_7sbgo&sensor=true"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
