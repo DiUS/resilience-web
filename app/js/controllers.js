@@ -8,12 +8,12 @@ function IssueController() {
 	
 }
 
-function MapController($scope, MapService, IssueService) {
+function MapController($scope, MapService, IssueService, $timeout) {
 	$scope.issueList = IssueService.get();
 	
-	
-	
 	$scope.markLocation = function() {
+		var boundaryBox = $scope.getBoundaries();
+		
 			var lat = document.getElementById("txtLat");
 			var lng = document.getElementById("txtLng");
 			var issue = "text";
@@ -36,15 +36,37 @@ function MapController($scope, MapService, IssueService) {
 	
 	$scope.getBoundaries = function() {
 		var boundaries = {
+				left: 0,
+				bottom: 0,
+				right: 0,
+				top: 0
 		};
 		
 		if ($scope.issueList) {
 			angular.forEach($scope.issueList.results, function(issue, index) {
+				
 				if (issue.location) {
+					if (issue.location.latitude < boundaries.left) {
+						boundaries.left = issue.location.latitude; 
+					}
 					
+					if (issue.location.latitude > boundaries.right) {
+						boundaries.right = issue.location.latitude; 
+					}
+					
+					if (issue.location.longitude < boundaries.bottom) {
+						boundaries.bottom = issue.location.longitude; 
+					}
+					
+					if (issue.location.longitude > boundaries.top) {
+						boundaries.top = issue.location.longitude; 
+					}
 				}
 			});
 		}
+		
+		return boundaries;
 	}
 
+	$timeout($scope.markLocation, 2000, true);
 }
