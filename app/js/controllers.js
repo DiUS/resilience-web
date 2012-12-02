@@ -4,6 +4,10 @@ function IssueListController($scope, $rootScope, IssueService) {
 	$scope.issueList = IssueService.get({order: '-createdAt'});
 }
 
+function CreateIssueController($scope, $rootScope, IssueService) {
+	
+}
+
 function IssueController() {
 	
 }
