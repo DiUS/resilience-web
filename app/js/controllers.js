@@ -67,6 +67,10 @@ function IssueListController($scope, $rootScope, IssueService) {
 	$scope.getCurrentLocation();
 }
 
+function CreateIssueController($scope, $rootScope, IssueService) {
+	
+}
+
 function IssueController() {
 	
 }
