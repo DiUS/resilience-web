@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<script type="text/javascript" language="javascript">
+	function loadIssues() {
+		return [
+			{"issue":"Category: Water - Impact: Low Issue #1.","location":{"lat":-31,"lng":150}},
+			{"issue":"Category: Fire - Impact: High Issue #2","location":{"lat":-32,"lng":148}},
+			{"issue":"Category: Water - Impact: Medium Issue #3","location":{"lat":-33,"lng":146}},
+			{"issue":"Category: Fire - Impact: Low Issue #4","location":{"lat":-34,"lng":144}}
+		]
+	}
+
+	function getBoundries(issues)
+	{
+		var minLat = NaN, maxLat = NaN, minLng = NaN, maxLng = NaN;
+
+		$.each(issues, function(index)
+		{
+			var lat = issues[index].location.lat;
+			var lng = issues[index].location.lng;
+			var issue = issues[index].issue;
+			var location = new google.maps.LatLng(lat, lng);
+
+			if(isNaN(minLat) || lat < minLat) minLat = lat;
+			if(isNaN(minLng) || lng < minLng) minLng = lng;
+			if(isNaN(maxLat) || lat > maxLat) maxLat = lat;
+			if(isNaN(maxLng) || lng > maxLng) maxLng = lng;
+		});
+
+		return {"minLat":minLat, "minLng":minLng, "maxLat":maxLat, "maxLng":maxLng};
+	}
+
+	function showInfoWindow(event)
+	{
+		event
+		infoWindow.setContent(issues[index].issue);
+		infoWindow.open();
+	}
+
+	function showIssues()
+	{
+		var issues = loadIssues();
+		var markers = new Array();
+
+		var boundries = getBoundries(issues);
+		var mostSouthWest = new google.maps.LatLng(boundries.minLat, boundries.minLng);
+		var mostNorthEast = new google.maps.LatLng(boundries.maxLat, boundries.maxLng);
+		var bounds = new google.maps.LatLngBounds(mostSouthWest,  mostNorthEast);
+		var centreOfEvents = new google.maps.LatLng((boundries.minLat + boundries.maxLat)/2, (boundries.minLng + boundries.maxLng)/2)
+
+		var infoWindow = new google.maps.InfoWindow();
+
+		$.each(issues, function(index)
+		{
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(issues[index].location.lat,issues[index].location.lng),
+				title: issues[index].issue
+			});
+
+			google.maps.event.addListener(marker, 'click', function(event) {
+				var html = '<strong>Issue:</strong> ' + issues[index].issue;
+				infoWindow.setContent(html);
+				infoWindow.setPosition(event.latLng);
+				infoWindow.open(map);
+			});
+
+			markers.push(marker);
+		});
+
+  		// draw map
+		var mapOptions = {
+			zoom: 6,
+			center: centreOfEvents,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+		map.fitBounds(bounds);
+		$.each(markers, function(index)
+		{
+			markers[index].setMap(map);
+		});
+	  }
+	</script>
+  </head>
+  <body>
+	<input type="button" id="btnPin" value="Pin issues on Map" onclick="showIssues()" />
+	<div id="map_canvas" style="width:400px; height:300px"></div>
+  </body>
+ </html>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGhHhG5mqahPfCb6IXJhbQgGRLi_7sbgo&sensor=true"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
